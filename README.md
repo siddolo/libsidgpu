@@ -23,7 +23,11 @@ npm ci
 npm run build
 ```
 
-[examples/web-synth](examples/web-synth/README.md) is a browser synthesizer and `.sid` (PSID) player built on top of `libsidgpu` (requires WebGL 2 and AudioWorklet support):
+[examples/web-synth](examples/web-synth/README.md) is a browser synthesizer and `.sid` (PSID) player built on top of `libsidgpu` (requires WebGL 2 and AudioWorklet support), with a live demo at [sid.pasqualefiorillo.it](https://sid.pasqualefiorillo.it):
+
+[![GPU SID Synth](examples/web-synth/public/og-image.png)](https://sid.pasqualefiorillo.it)
+
+To run it locally:
 
 ```sh
 npm run dev

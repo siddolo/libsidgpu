@@ -1,6 +1,6 @@
 # Web Synth
 
-`examples/web-synth` is an interactive browser synthesizer and `.sid` (PSID) player built on `libsidgpu`.
+`examples/web-synth` is an interactive browser synthesizer and `.sid` (PSID) player built on `libsidgpu` (live demo at [sid.pasqualefiorillo.it](https://sid.pasqualefiorillo.it)).
 
 ## Running
 
