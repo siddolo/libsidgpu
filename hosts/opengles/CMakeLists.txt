@@ -1,0 +1,38 @@
+cmake_minimum_required(VERSION 3.19)
+project(libsidgpu VERSION 0.1.0 LANGUAGES C)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GLES REQUIRED IMPORTED_TARGET glesv2)
+pkg_check_modules(EGL REQUIRED IMPORTED_TARGET egl)
+
+# Embed the shared sources so applications do not need shader files at runtime.
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated")
+set(shader_header "")
+foreach(shader opengles/fullscreen.vert.glsl opengles/interface.glsl common.glsl oscillator.glsl envelope.glsl filter.glsl opengles/state-update.frag.glsl opengles/pcm-render.frag.glsl)
+  set(path "${CMAKE_CURRENT_SOURCE_DIR}/../../shaders/${shader}")
+  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${path}")
+  file(READ "${path}" source)
+  string(MAKE_C_IDENTIFIER "${shader}" symbol)
+  string(REPLACE "\\" "\\\\" source "${source}")
+  string(REPLACE "\"" "\\\"" source "${source}")
+  string(REPLACE "\n" "\\n\"\n\"" source "${source}")
+  string(APPEND shader_header "static const char ${symbol}[] = \"${source}\";\n")
+endforeach()
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/generated/shaders.h" "${shader_header}")
+
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+add_library(sidgpu SHARED src/sidgpu.c ../common/events.c)
+target_compile_features(sidgpu PUBLIC c_std_99)
+target_include_directories(sidgpu PUBLIC ../include PRIVATE ../common "${CMAKE_CURRENT_BINARY_DIR}/generated")
+target_link_libraries(sidgpu PRIVATE PkgConfig::GLES)
+
+add_subdirectory(../../examples/opengles-wav examples/opengles-wav)
+
+include(CTest)
+if(BUILD_TESTING)
+  add_subdirectory(../../tests/hosts tests)
+  target_compile_definitions(sidgpu-test PRIVATE SIDGPU_OPENGL_ES)
+  target_link_libraries(sidgpu-test PRIVATE PkgConfig::EGL PkgConfig::GLES)
+endif()

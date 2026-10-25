@@ -1,0 +1,20 @@
+[
+  {"sampleRate":44100,"frequency":0,"samples":128,"phase":0,"lfsr":8388607},
+  {"sampleRate":44100,"frequency":0,"samples":1024,"phase":0,"lfsr":8388607},
+  {"sampleRate":44100,"frequency":0,"samples":4096,"phase":0,"lfsr":8388607},
+  {"sampleRate":44100,"frequency":7492,"samples":128,"phase":4642412,"lfsr":7340035},
+  {"sampleRate":44100,"frequency":7492,"samples":1024,"phase":3622324,"lfsr":4591490},
+  {"sampleRate":44100,"frequency":7492,"samples":4096,"phase":14496788,"lfsr":1635726},
+  {"sampleRate":44100,"frequency":65535,"samples":128,"phase":2815189,"lfsr":135167},
+  {"sampleRate":44100,"frequency":65535,"samples":1024,"phase":6071971,"lfsr":2606853},
+  {"sampleRate":44100,"frequency":65535,"samples":4096,"phase":7576203,"lfsr":1253689},
+  {"sampleRate":48000,"frequency":0,"samples":128,"phase":0,"lfsr":8388607},
+  {"sampleRate":48000,"frequency":0,"samples":1024,"phase":0,"lfsr":8388607},
+  {"sampleRate":48000,"frequency":0,"samples":4096,"phase":0,"lfsr":8388607},
+  {"sampleRate":48000,"frequency":7492,"samples":128,"phase":2904268,"lfsr":7864321},
+  {"sampleRate":48000,"frequency":7492,"samples":1024,"phase":6471912,"lfsr":4705840},
+  {"sampleRate":48000,"frequency":7492,"samples":4096,"phase":9125416,"lfsr":6961282},
+  {"sampleRate":48000,"frequency":65535,"samples":128,"phase":4388285,"lfsr":794372},
+  {"sampleRate":48000,"frequency":65535,"samples":1024,"phase":1682918,"lfsr":2077605},
+  {"sampleRate":48000,"frequency":65535,"samples":4096,"phase":6862742,"lfsr":1630094}
+]

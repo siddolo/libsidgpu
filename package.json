@@ -1,0 +1,15 @@
+{
+  "name": "libsidgpu-workspace",
+  "private": true,
+  "type": "module",
+  "workspaces": ["hosts/webgl", "examples/web-synth"],
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "build": "npm run build --workspace hosts/webgl",
+    "build:demo": "npm run build && npm run build --workspace examples/web-synth",
+    "dev": "npm run build && npm run dev --workspace examples/web-synth",
+    "preview": "npm run preview --workspace examples/web-synth",
+    "test": "npm run build && npm run test --workspaces",
+    "test:browser": "npm run build && npm run test:browser --workspace examples/web-synth --"
+  }
+}

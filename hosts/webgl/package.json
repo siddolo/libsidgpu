@@ -1,0 +1,32 @@
+{
+  "name": "libsidgpu",
+  "version": "0.1.0",
+  "description": "WebGL 2 Commodore 64 SID (MOS 8580) sound chip synthesizer",
+  "author": "Pasquale 'sid' Fiorillo",
+  "repository": "https://github.com/siddolo/libsidgpu",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/libsidgpu.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/libsidgpu.js"
+    },
+    "./shaders/*": "./dist/shaders/*"
+  },
+  "files": ["dist"],
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "build": "vite build && tsc -p tsconfig.build.json && node -e \"for (const dir of ['shaders', 'docs']) require('node:fs').cpSync('../../' + dir, 'dist/' + dir, { recursive: true })\"",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.12",
+    "vitest": "^5.0.5"
+  }
+}

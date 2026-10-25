@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GPU SID Synth</title>
+  </head>
+  <body>
+    <main id="app">
+      <header>
+        <div class="brand">
+          <p class="eyebrow">WEBGL 2 AUDIO <span class="brand-credit">- based on <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 3.86c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> <a href="https://github.com/siddolo/libsidgpu">libsidgpu</a></span></p>
+          <h1>GPU SID <span>Synth</span></h1>
+        </div>
+        <div class="mini-scope">
+          <div class="mini-scope-heading">
+            <span>SID OUTPUT</span>
+            <span id="clock">PAL 985248 Hz</span>
+          </div>
+          <div class="mini-scope-screen">
+            <canvas id="header-scope" width="720" height="128" aria-label="Compact oscilloscope"></canvas>
+            <canvas id="header-loader" width="720" height="128" aria-hidden="true" hidden></canvas>
+          </div>
+        </div>
+      </header>
+
+      <section class="toolbar" aria-label="Transport">
+        <button id="start" class="primary">Start</button>
+        <button id="stop" disabled>Stop</button>
+        <button id="reset">Reset</button>
+        <button id="sid-toggle" aria-expanded="false" aria-controls="sid-player">SID Player</button>
+        <label><input id="mute" type="checkbox"> Mute</label>
+        <label>Preset <select id="preset"></select></label>
+        <button id="demo">Demo</button>
+        <label>Block size <select id="block"></select></label>
+        <label>Rendering strategy
+          <select id="strategy">
+            <option value="checkpoint">Checkpoint 32</option>
+            <option value="baseline">Full-block baseline</option>
+          </select>
+        </label>
+      </section>
+
+      <section id="sid-player" class="sid-player" aria-label="SID Player" hidden>
+        <h2>SID Player</h2>
+        <div class="toolbar">
+          <label>SID file <input id="sid-file" type="file" accept=".sid"></label>
+          <label>Subsong <select id="sid-song" disabled></select></label>
+          <button id="sid-unload" disabled>Back to synth</button>
+          <output id="sid-time">0:00</output>
+        </div>
+        <p id="sid-info" class="hint">Select a PSID file and press Start.</p>
+      </section>
+
+      <p id="status" role="status">Press Start, then play using the keyboard or enable the voice Gate controls.</p>
+      <section id="synth" aria-label="SID controls"></section>
+      <section class="keyboard-section">
+        <div class="section-heading"><h2>Keyboard</h2><span>3 voices / C3-B4 / Z-M and Q-U</span></div>
+        <div id="keyboard" class="keyboard"></div>
+      </section>
+      <section class="scope">
+        <div class="section-heading"><h2>SID Output</h2><span id="levels">RMS 0 / Peak 0</span></div>
+        <canvas id="scope" width="1024" height="160" aria-label="PCM waveform"></canvas>
+      </section>
+      <details open>
+        <summary>Diagnostics</summary>
+        <dl id="diagnostics"></dl>
+      </details>
+
+      <section class="lab">
+        <h2>Render &amp; Benchmark</h2>
+        <div class="toolbar">
+          <label>WAV duration (s) <input id="duration" type="number" min="0.1" max="120" step="0.1" value="4"></label>
+          <label>Sample rate <select id="offline-rate"><option>48000</option><option>44100</option></select></label>
+          <button id="export">Export preset WAV + JSON</button>
+        </div>
+        <div class="toolbar">
+          <label>Trial duration (s) <input id="trial-seconds" type="number" min="0.02" max="10" step="0.02" value="0.25"></label>
+          <label>Experiment
+            <select id="experiment">
+              <option value="both">Baseline + checkpoint</option>
+              <option value="parallel">Parallel samples (sawtooth)</option>
+            </select>
+          </label>
+          <button id="benchmark">Benchmark</button>
+          <button id="cancel" disabled>Cancel</button>
+        </div>
+        <pre id="results"></pre>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
